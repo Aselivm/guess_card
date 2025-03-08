@@ -2,7 +2,6 @@ package org.primshits.stepan.representaion;
 
 
 import org.primshits.stepan.card.Card;
-import org.primshits.stepan.card.Rank;
 import org.primshits.stepan.card.Suit;
 import org.primshits.stepan.representaion.util.CardTemplate;
 
@@ -29,10 +28,6 @@ public class PictureRepresentation extends CardRepresentation {
         result.append(RESET_COLOR);
 
         return result.toString();
-    }
-
-    private String[] getCardTemplate(Rank rank) {
-        return cardTemplate.getTemplate(rank);
     }
 
     private boolean isRedSuit(Suit suit) {
