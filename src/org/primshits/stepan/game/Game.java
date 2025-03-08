@@ -15,6 +15,8 @@ public class Game {
 
     private final CardRenderer cardRenderer;
     private final Deck deck = new Deck();
+
+    private Dialog<String> dialog;
     private int guessCounter;
 
     public Game(CardRepresentation representation) {
@@ -23,23 +25,14 @@ public class Game {
     }
 
     public void start() {
-        deck.shuffle();
-
-        GamePrompt gamePrompt = new GamePrompt(
-                "ИГРА УГАДАЙ КАРТУ",
-                "Угадайте карту ('b' - черная, 'r' - красная)",
-                "Ошибка: попробуйте снова."
-        );
-
-        Dialog<String> dialog = new GuessCardColorDialog(gamePrompt, "[rb]");
-
+        initGame();
         while (deck.size() > 0) {
             showCurrentStats();
+
             String guess = dialog.input();
-
             Card card = deck.takeTopCard();
-            cardRenderer.render(card);
 
+            cardRenderer.render(card);
             if (isUserWon(card, guess)) {
                 guessCounter++;
                 showWin();
@@ -47,6 +40,16 @@ public class Game {
                 showLose();
             }
         }
+    }
+
+    private void initGame() {
+        deck.shuffle();
+        GamePrompt gamePrompt = new GamePrompt(
+                "ИГРА УГАДАЙ КАРТУ",
+                "Угадайте карту ('b' - черная, 'r' - красная)",
+                "Ошибка: попробуйте снова."
+        );
+        this.dialog = new GuessCardColorDialog(gamePrompt, "[rb]");
     }
 
     private void showCurrentStats() {
