@@ -1,4 +1,4 @@
 package org.primshits.stepan.dialog;
 
-public record GamePrompt(String title, String turn, String error) {
+public record GamePrompt(String turn, String error) {
 }

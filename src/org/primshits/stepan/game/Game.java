@@ -10,8 +10,8 @@ import org.primshits.stepan.representaion.CardRepresentation;
 import org.primshits.stepan.dialog.GamePrompt;
 
 public class Game {
-    private static final String RED_GUESS = "r";
-    private static final String BLACK_GUESS = "b";
+    private static final String RED_GUESS_REGEX = "[rR]";
+    private static final String BLACK_GUESS_REGEX = "[bB]";
 
     private final CardRenderer cardRenderer;
     private final Deck deck = new Deck();
@@ -26,6 +26,7 @@ public class Game {
 
     public void start() {
         initGame();
+        showGameTitle();
         while (deck.size() > 0) {
             showCurrentStats();
 
@@ -37,19 +38,24 @@ public class Game {
         }
     }
 
+    private void showGameTitle() {
+        System.out.println("ИГРА УГАДАЙ КАРТУ");
+        System.out.println("-----------------\n");
+    }
+
     private void initGame() {
         deck.shuffle();
         GamePrompt gamePrompt = new GamePrompt(
-                "ИГРА УГАДАЙ КАРТУ",
                 "Угадайте карту ('b' - черная, 'r' - красная)",
                 "Ошибка: попробуйте снова."
         );
-        dialog = new GuessCardColorDialog(gamePrompt, "[rb]");
+        dialog = new GuessCardColorDialog(gamePrompt, RED_GUESS_REGEX, BLACK_GUESS_REGEX);
     }
 
     private void showCurrentStats() {
         System.out.println("Карт в колоде:" + deck.size());
         System.out.println("Угадано:" + guessCounter);
+        System.out.println("______________\n");
     }
 
     private void showCard(Card card) {
@@ -66,7 +72,8 @@ public class Game {
     }
 
     private boolean isUserWon(Card card, String guess) {
-        return (isCardRed(card) && RED_GUESS.equals(guess)) || (isCardBlack(card) && BLACK_GUESS.equals(guess));
+        return (isCardRed(card) && guess.matches(RED_GUESS_REGEX)) ||
+                (isCardBlack(card) && guess.matches(BLACK_GUESS_REGEX));
     }
 
     private boolean isCardRed(Card card) {
@@ -80,10 +87,10 @@ public class Game {
     }
 
     private static void showWin() {
-        System.out.println("ВЫ УГАДАЛИ!");
+        System.out.println("ВЫ УГАДАЛИ!\n");
     }
 
     private void showLose() {
-        System.out.println("Вы не угадали.");
+        System.out.println("Вы не угадали.\n");
     }
 }

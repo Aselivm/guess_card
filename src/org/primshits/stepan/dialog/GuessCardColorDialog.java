@@ -5,16 +5,15 @@ import java.util.Scanner;
 public class GuessCardColorDialog implements Dialog<String> {
 
     private final GamePrompt gamePrompt;
-    private final String validInputRegex;
+    private final String[] validInputRegex;
 
-    public GuessCardColorDialog(GamePrompt gamePrompt, String validInputRegex) {
+    public GuessCardColorDialog(GamePrompt gamePrompt, String... validInputRegex) {
         this.gamePrompt = gamePrompt;
         this.validInputRegex = validInputRegex;
     }
 
     @Override
     public String input() {
-        System.out.println(gamePrompt.title());
         while (true) {
             System.out.println(gamePrompt.turn());
             String input = userInput();
@@ -32,6 +31,11 @@ public class GuessCardColorDialog implements Dialog<String> {
     }
 
     private boolean isValid(String input) {
-        return input.matches(validInputRegex);
+        for(String regex : validInputRegex) {
+            if (input.matches(regex)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
