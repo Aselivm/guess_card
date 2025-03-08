@@ -1,5 +1,7 @@
 package org.primshits.stepan.dialog;
 
+import org.primshits.stepan.dialog.util.GamePrompt;
+
 import java.util.Scanner;
 
 public class GuessCardColorDialog implements Dialog<String> {
