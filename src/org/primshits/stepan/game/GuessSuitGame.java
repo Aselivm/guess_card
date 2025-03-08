@@ -14,17 +14,12 @@ public class GuessSuitGame extends Game {
     }
 
     @Override
-    protected void showCurrentStats() {
-
-    }
-
-    @Override
     protected String getUserGuess() {
         return "";
     }
 
     @Override
-    protected void showResult(Card card, String guess) {
-
+    protected boolean isUserWon(Card card, String guess) {
+        return false;
     }
 }

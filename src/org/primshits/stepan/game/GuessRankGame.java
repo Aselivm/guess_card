@@ -10,12 +10,8 @@ public class GuessRankGame extends Game {
 
     @Override
     protected void showGameTitle() {
-
-    }
-
-    @Override
-    protected void showCurrentStats() {
-
+        System.out.println("ИГРА: УГАДАЙ НОМИНАЛ(Rank) КАРТЫ");
+        System.out.println("---------------\n");
     }
 
     @Override
@@ -24,7 +20,7 @@ public class GuessRankGame extends Game {
     }
 
     @Override
-    protected void showResult(Card card, String guess) {
-
+    protected boolean isUserWon(Card card, String guess) {
+        return false;
     }
 }

@@ -10,6 +10,8 @@ public abstract class Game {
     private final CardRenderer cardRenderer;
     private final Deck deck = new Deck();
 
+    private int successfulGuessCounter;
+
     public Game(CardRepresentation representation) {
         this.cardRenderer = new CardRenderer(representation);
     }
@@ -25,15 +27,32 @@ public abstract class Game {
             Card card = deck.takeTopCard();
 
             cardRenderer.render(card);
-            showResult(card, guess);
+            if (isUserWon(card, guess)) {
+                successfulGuessCounter++;
+                showWin();
+            } else {
+                showLose();
+            }
         }
     }
 
     abstract protected void showGameTitle();
 
-    abstract protected void showCurrentStats();
-
     abstract protected String getUserGuess();
 
-    abstract protected void showResult(Card card, String guess);
+    abstract protected boolean isUserWon(Card card, String guess);
+
+    private void showCurrentStats() {
+        System.out.println("Карт в колоде:" + deck.size());
+        System.out.println("Угадано:" + successfulGuessCounter);
+        System.out.println("______________\n");
+    }
+
+    private void showWin() {
+        System.out.println("ВЫ УГАДАЛИ!\n");
+    }
+
+    private void showLose() {
+        System.out.println("Вы не угадали.\n");
+    }
 }
