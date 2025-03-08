@@ -1,8 +1,6 @@
 package org.primshits.stepan.representaion;
 
 import org.primshits.stepan.card.Card;
-import org.primshits.stepan.card.Rank;
-import org.primshits.stepan.card.Suit;
 
 public class TextRepresentation extends CardRepresentation {
 
