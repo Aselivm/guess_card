@@ -1,12 +1,13 @@
 package org.primshits.stepan;
 
 import org.primshits.stepan.game.Game;
+import org.primshits.stepan.game.GuessColorGame;
 import org.primshits.stepan.representaion.TextRepresentation;
 
-public class MainText {
+public class MainColorText {
 
     public static void main(String[] args) {
-        Game game = new Game(new TextRepresentation());
+        Game game = new GuessColorGame(new TextRepresentation());
         game.start();
     }
 }
