@@ -32,13 +32,8 @@ public class Game {
             String guess = dialog.input();
             Card card = deck.takeTopCard();
 
-            cardRenderer.render(card);
-            if (isUserWon(card, guess)) {
-                guessCounter++;
-                showWin();
-            } else {
-                showLose();
-            }
+            showCard(card);
+            showResult(card, guess);
         }
     }
 
@@ -49,12 +44,25 @@ public class Game {
                 "Угадайте карту ('b' - черная, 'r' - красная)",
                 "Ошибка: попробуйте снова."
         );
-        this.dialog = new GuessCardColorDialog(gamePrompt, "[rb]");
+        dialog = new GuessCardColorDialog(gamePrompt, "[rb]");
     }
 
     private void showCurrentStats() {
         System.out.println("Карт в колоде:" + deck.size());
         System.out.println("Угадано:" + guessCounter);
+    }
+
+    private void showCard(Card card) {
+        cardRenderer.render(card);
+    }
+
+    private void showResult(Card card, String guess) {
+        if (isUserWon(card, guess)) {
+            guessCounter++;
+            showWin();
+        } else {
+            showLose();
+        }
     }
 
     private boolean isUserWon(Card card, String guess) {
