@@ -37,7 +37,7 @@ public class Deck {
     }
 
     private Deque<Card> createAllCards() {
-        Deque<Card> deck = new ArrayDeque<>();
+        Deque<Card> deck = new ArrayDeque<>(52);
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
                 deck.add(new Card(suit, rank));
