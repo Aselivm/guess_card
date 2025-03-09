@@ -5,7 +5,6 @@ import org.primshits.stepan.card.Rank;
 import org.primshits.stepan.card.Suit;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Deck {
 
@@ -38,9 +37,12 @@ public class Deck {
     }
 
     private Deque<Card> createAllCards() {
-        return Arrays.stream(Suit.values())
-                .flatMap(suit -> Arrays.stream(Rank.values())
-                        .map(rank -> new Card(suit, rank)))
-                .collect(Collectors.toCollection(ArrayDeque::new));
+        Deque<Card> deck = new ArrayDeque<>();
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
+                deck.add(new Card(suit, rank));
+            }
+        }
+        return deck;
     }
 }
