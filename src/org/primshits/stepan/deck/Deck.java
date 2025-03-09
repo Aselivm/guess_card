@@ -4,28 +4,26 @@ import org.primshits.stepan.card.Card;
 import org.primshits.stepan.card.Rank;
 import org.primshits.stepan.card.Suit;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Deck {
 
-    private final List<Card> cards;
+    private final Deque<Card> cards;
 
     public Deck() {
         this.cards = createAllCards();
     }
 
-    public Deck(List<Card> cards) {
-        this.cards = cards;
-    }
-
-    public List<Card> getCards() {
-        return cards;
+    public Deck(Collection<Card> cards) {
+        this.cards = new ArrayDeque<>(cards);
     }
 
     public void shuffle() {
-        Collections.shuffle(cards);
+        List<Card> tempList = new ArrayList<>(cards);
+        Collections.shuffle(tempList);
+        cards.clear();
+        cards.addAll(tempList);
     }
 
     public int size() {
@@ -36,17 +34,13 @@ public class Deck {
         if (cards.isEmpty()) {
             throw new IllegalStateException("Колода пуста!");
         }
-
-        return cards.remove(cards.size() - 1);
+        return cards.removeLast();
     }
 
-    private List<Card> createAllCards() {
-        List<Card> allCards = new ArrayList<>(52);
-        for (Suit suit : Suit.values()) {
-            for (Rank rank : Rank.values()) {
-                allCards.add(new Card(suit, rank));
-            }
-        }
-        return allCards;
+    private Deque<Card> createAllCards() {
+        return Arrays.stream(Suit.values())
+                .flatMap(suit -> Arrays.stream(Rank.values())
+                        .map(rank -> new Card(suit, rank)))
+                .collect(Collectors.toCollection(ArrayDeque::new));
     }
 }
